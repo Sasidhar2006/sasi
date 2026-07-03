@@ -35,7 +35,15 @@ const registerUser = async (req, res) => {
       .status(201)
       .json({ success: true, message: "Registration successful! Please login." });
   } catch (error) {
-    console.error("Register Error:", error);
+    console.error("Register Error:", error.message);
+    // Surface validation errors from Mongoose
+    if (error.name === "ValidationError") {
+      const messages = Object.values(error.errors).map((e) => e.message);
+      return res.status(400).json({ success: false, message: messages.join(", ") });
+    }
+    if (error.code === 11000) {
+      return res.status(400).json({ success: false, message: "Email already registered." });
+    }
     return res
       .status(500)
       .json({ success: false, message: "Server error. Please try again." });

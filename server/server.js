@@ -17,8 +17,30 @@ connectDB().then(() => {
 
 const app = express();
 
+// ── Allowed Origins ─────────────────────────────────────────
+const allowedOrigins = [
+  /^http:\/\/localhost(:\d+)?$/, // any localhost port
+  /^https?:\/\/.*\.onrender\.com$/, // any onrender.com subdomain
+];
+if (process.env.FRONTEND_URL) {
+  allowedOrigins.push(process.env.FRONTEND_URL);
+}
+
 // ── Global Middlewares ──────────────────────────────────────
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. curl, Postman, server-to-server)
+      if (!origin) return callback(null, true);
+      const allowed = allowedOrigins.some((pattern) =>
+        typeof pattern === "string" ? pattern === origin : pattern.test(origin)
+      );
+      if (allowed) return callback(null, true);
+      callback(new Error(`CORS: origin '${origin}' not allowed`));
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));

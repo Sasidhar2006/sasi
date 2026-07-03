@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="32" fill="url(#grad)"/>
+  <!-- Cross / Medical symbol -->
+  <rect x="26" y="14" width="12" height="36" rx="4" fill="white" opacity="0.95"/>
+  <rect x="14" y="26" width="36" height="12" rx="4" fill="white" opacity="0.95"/>
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+</svg>
