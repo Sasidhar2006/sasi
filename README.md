@@ -42,7 +42,7 @@ JWT_EXPIRES_IN=7d
 
 ### client/.env
 ```
-VITE_API_BASE_URL=http://localhost:5000/api
+VITE_API_BASE_URL=http://backend-lk8k.onrender.com/api
 ```
 
 ---
